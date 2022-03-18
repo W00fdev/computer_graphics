@@ -71,19 +71,21 @@ void ellipseMidPoint()
     glFlush();
 }
 
-void display()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 0.0, 0.0);
-    glPointSize(2.0);
+//void display(const Renderer& render)
+//{
+    //render.Display();
+    //glClear(GL_COLOR_BUFFER_BIT);
+    //glColor3f(1.0, 0.0, 0.0);
+    //glPointSize(2.0);
     //ellipseMidPoint();
-    glFlush();
-}
+    //glFlush();
+//}
 
 int main(int argc, char** argv)
 {
-    Renderer::Init(argc, argv);
-    glutDisplayFunc(Renderer::Display);
-    glutMainLoop();
+    Renderer render;
+    render.Init(argc, argv);
+    render.StartGameLoop();
+    
     return 0;
 }

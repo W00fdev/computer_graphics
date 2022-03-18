@@ -25,13 +25,13 @@ namespace comp_lab {
 		virtual int operator[] (int index);
 
 		// Copy operators
-		virtual point2& operator= (const point2&& _point);
+		virtual point2& operator= (const point2& _point) noexcept;
 
-		virtual point2& operator= (const vector<int>&& _point);
-		virtual point2& operator= (const matrix&& _matrix);
+		virtual point2& operator= (const vector<int>& _point);
+		virtual point2& operator= (const matrix& _matrix);
 	};
 
-	class point3 : public point2 {
+	/*class point3 : public point2 {
 	private:
 		int zz;
 
@@ -51,8 +51,10 @@ namespace comp_lab {
 
 		// Copy operators
 
-		void operator= (const point3& _point);
-		void operator= (const vector<int>& _point);
-		void operator= (const matrix& _matrix);
+		point3& operator= (const point3& _point) noexcept;
+		point3& operator= (const vector<int>& _point);
+		point3& operator= (const matrix& _matrix);
+		
 	};
+	*/
 }
