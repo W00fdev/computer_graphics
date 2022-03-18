@@ -21,7 +21,6 @@ namespace comp_lab {
 		col_size = _matrix.col_size;
 	}
 
-
 	matrix matrix::sum(const matrix& _matrix) {
 		if (_matrix.col_size != col_size || _matrix.row_size != row_size)
 			throw std::exception("Wrong dimensions matrix's sum.");
@@ -45,8 +44,6 @@ namespace comp_lab {
 	{
 		return *this;
 	}
-
-
 
 	// GETTERS
 

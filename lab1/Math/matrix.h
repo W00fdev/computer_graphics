@@ -14,6 +14,8 @@ namespace comp_lab {
 		int row_size = 0;
 		int col_size = 0;
 
+		bool transposed = false;
+
 	public:
 		matrix(int _rowSize, int _colSize);
 		matrix(const vector<vector<int>>& _data);
@@ -21,8 +23,7 @@ namespace comp_lab {
 
 		matrix sum(const matrix& _matrix);
 
-
-		void transpose() const;
+		void transpose();
 
 		// Operators
 

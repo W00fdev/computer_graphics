@@ -4,7 +4,7 @@
 #include "point.h"
 
 namespace comp_lab {
-	static class DrawHandler
+	static class Renderer
 	{
 	public:
 
@@ -23,6 +23,12 @@ namespace comp_lab {
 		static void SetPixel(point2 point) {
 			glBegin(GL_POINTS);
 			glVertex2i(point.x(), point.y());
+			glEnd();
+		}
+
+		static void SetPixel(int _x, int _y) {
+			glBegin(GL_POINTS);
+			glVertex2i(_x, _y);
 			glEnd();
 		}
 

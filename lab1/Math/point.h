@@ -24,7 +24,6 @@ namespace comp_lab {
 
 		virtual int operator[] (int index);
 
-
 		// Copy operators
 		virtual point2& operator= (const point2&& _point);
 

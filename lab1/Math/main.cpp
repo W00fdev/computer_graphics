@@ -1,10 +1,11 @@
 #include <gl/glut.h>
 #include <iostream>
 
-#include "Drawnichok.h"
+#include "Core/Renderer.h"
 
 using namespace std;
 using namespace comp_lab;
+
 
 int rx = 100, ry = 125;
 int xCenter = 250, yCenter = 250;
@@ -19,10 +20,11 @@ void ellipseMidPoint()
     glColor3ub(rand() % 255, rand() % 255, rand() % 255);
     while (dx < dy)
     {
-        setPixel(xCenter + x, yCenter + y);
-        setPixel(xCenter - x, yCenter + y);
-        setPixel(xCenter + x, yCenter - y);
-        setPixel(xCenter - x, yCenter - y);
+        Renderer::SetPixel(xCenter + x, yCenter + y);
+        Renderer::SetPixel(xCenter - x, yCenter + y);
+        Renderer::SetPixel(xCenter + x, yCenter - y);
+        Renderer::SetPixel(xCenter - x, yCenter - y);
+
         if (p1 < 0)
         {
             x = x + 1;
@@ -45,10 +47,10 @@ void ellipseMidPoint()
     glColor3ub(rand() % 255, rand() % 255, rand() % 255);
     while (y > 0)
     {
-        setPixel(xCenter + x, yCenter + y);
-        setPixel(xCenter - x, yCenter + y);
-        setPixel(xCenter + x, yCenter - y);
-        setPixel(xCenter - x, yCenter - y);
+        Renderer::SetPixel(xCenter + x, yCenter + y);
+        Renderer::SetPixel(xCenter - x, yCenter + y);
+        Renderer::SetPixel(xCenter + x, yCenter - y);
+        Renderer::SetPixel(xCenter - x, yCenter - y);
         if (p2 > 0)
         {
             x = x;
@@ -80,8 +82,8 @@ void display()
 
 int main(int argc, char** argv)
 {
-    DrawHandler::Init(argc, argv);
-    glutDisplayFunc(DrawHandler::Display);
+    Renderer::Init(argc, argv);
+    glutDisplayFunc(Renderer::Display);
     glutMainLoop();
     return 0;
 }
