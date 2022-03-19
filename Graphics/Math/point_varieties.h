@@ -3,7 +3,7 @@
 #include "point.h"
 
 namespace comp_lab {
-	class point2 : point_base {
+	class point2 : public point_base {
 	protected:
 		int xx = 0;
 		int yy = 0;
@@ -11,8 +11,8 @@ namespace comp_lab {
 	public:
 		point2();
 		point2(int _x, int _y);
-		point2(const point2& _point);
-		point2(vector<int> _vector);
+		point2(const vector<int>& _vector);
+		point2(const point_base& _point);
 
 		// Getters
 		virtual vector<int> getVector() const override;
@@ -24,36 +24,33 @@ namespace comp_lab {
 		virtual int at(int index) const override;
 
 		// Copy operators
-		virtual point2& operator= (const point_base& _point) override ;
-		virtual point2& operator= (const vector<int>& _point) override;
+		virtual point_base& operator= (const point_base& _point) override ;
+		virtual point_base& operator= (const vector<int>& _point) override;
 	};
 
-	/*class point3 : public point2 {
-	private:
-		int zz;
+	class point3 : public point2 {
+	protected:
+		int zz = 0;
 
 	public:
+		point3();
 		point3(int _x, int _y, int _z);
-		point3(const point3& _point);
-		point3(vector<int> _vector);
-		point3(const matrix& _matrix);
+		point3(const vector<int>& _vector);
+		point3(const point_base& _point);
 
 		// Getters
-		vector<int> getVector() const;
-		matrix getMatrix() const;
+		vector<int> getVector() const override;
 
 		int z() const;
 
-		int operator[] (int index);
+		int& operator[] (int index) override;
+		int at(int index) const override;
 
 		// Copy operators
-
-		point3& operator= (const point3& _point) noexcept;
-		point3& operator= (const vector<int>& _point);
-		point3& operator= (const matrix& _matrix);
-		
+		point_base& operator= (const point_base& _point) override;
+		point_base& operator= (const vector<int>& _point) override;
 	};
-	*/
+	
 }
 
 // N - dimension

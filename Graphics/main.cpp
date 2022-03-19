@@ -87,5 +87,8 @@ int main(int argc, char** argv)
     //render.Init(argc, argv);
     //render.StartGameLoop();
 
+    point3 p1(point2{0, 1});
+    point3 p2 = p1;
+
     return 0;
 }

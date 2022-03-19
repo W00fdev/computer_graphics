@@ -1,7 +1,6 @@
 #include "point_varieties.h"
 
 // POINT2
-
 namespace comp_lab {
 
 	point2::point2() {
@@ -13,17 +12,17 @@ namespace comp_lab {
 		yy = _y;
 	}
 
-	point2::point2(const point2& _point) : point2() {
-		xx = _point.x();
-		yy = _point.y();
-	}
-
-	point2::point2(vector<int> _vector) : point2() {
+	point2::point2(const vector<int>& _vector) : point2() {
 		if (_vector.size() < 2)
 			throw std::exception("Invalid vector size in point2 constructor");
 
 		xx = _vector[0];
 		yy = _vector[1];
+	}
+
+	point2::point2(const point_base& _point) : point2() {
+		xx = _point.at(0);
+		yy = _point.at(1);
 	}
 
 	// Getters
@@ -54,7 +53,7 @@ namespace comp_lab {
 	}
 
 	// Copy operators
-	point2& point2::operator= (const point_base& _point) {
+	point_base& point2::operator= (const point_base& _point) {
 		if (this == &_point)
 			return *this;
 
@@ -63,8 +62,7 @@ namespace comp_lab {
 
 		return *this;
 	}
-
-	point2& point2::operator= (const vector<int>& _point) {
+	point_base& point2::operator= (const vector<int>& _point) {
 		if (_point.size() > 1)
 		{
 			xx = _point[0];
@@ -78,24 +76,19 @@ namespace comp_lab {
 	}
 }
 
-
 // POINT3
-
 namespace comp_lab {
 
-	/*point3::point3(int _x, int _y, int _z) {
-		xx = _x;
-		yy = _y;
+	point3::point3() {
+		size = 3;
+	}
+
+	point3::point3(int _x, int _y, int _z) : point2(_x, _y) {
+		point3();
 		zz = _z;
 	}
 
-	point3::point3(const point3& _point) {
-		xx = _point.x();
-		yy = _point.y();
-		zz = _point.z();
-	}
-
-	point3::point3(vector<int> _vector) {
+	point3::point3(const vector<int>& _vector) : point3() {
 		if (_vector.size() < 3)
 			throw std::exception("Invalid vector size in point2 constructor");
 
@@ -104,27 +97,52 @@ namespace comp_lab {
 		zz = _vector[2];
 	}
 
-	point3::point3(const matrix& _matrix) {
-		if (_matrix.getSizeRow() < 1 || _matrix.getSizeCol() < 3)
-			throw std::exception("Invalid matrix size in point3 constructor");
-
-		xx = _matrix[0][0];
-		yy = _matrix[0][1];
-		zz = _matrix[0][2];
+	point3::point3(const point_base& _point) : point2(_point) {
+		point3();
+		if (_point.size >= 3)
+			zz = _point.at(2);
 	}
 
+	vector<int> point3::getVector() const {
+		return { xx, yy, zz };
+	}
 
-	point3& point3::operator= (const point3& _point) noexcept {
+	int point3::z() const {
+		return zz;
+	}
+
+	int& point3::operator[] (int index) {
+		if (index < 0 || index >= 3)
+			throw std::exception("Wrong index [] at point3");
+
+		if (index == 0)
+			return xx;
+		
+		return index == 1 ? yy : zz;
+	}
+
+	int point3::at(int index) const {
+		if (index < 0 || index >= 3)
+			throw std::exception("Wrong index [] at point3");
+
+		if (index == 0)
+			return xx;
+
+		return index == 1 ? yy : zz;
+	}
+
+	point_base& point3::operator= (const point_base& _point) {
 		if (this == &_point)
 			return *this;
 
-		xx = _point.xx;
-		yy = _point.yy;
+		xx = _point.at(0);
+		yy = _point.at(1);
+		if (_point.size >= 3)
+			zz = _point.at(2);
 
 		return *this;
 	}
-
-	point3& point3::operator= (const vector<int>& _point) {
+	point_base& point3::operator= (const vector<int>& _point) {
 		if (_point.size() > 2)
 		{
 			xx = _point[0];
@@ -135,26 +153,6 @@ namespace comp_lab {
 			throw std::exception("invalid vector point3::operator=(vector)");
 		}
 
-
 		return *this;
 	}
-
-	point3& point3::operator= (const matrix& _matrix) {
-		if (_matrix.getSizeRow() > 0 && _matrix.getSizeRow() > 2) {
-			xx = _matrix[0][0];
-			yy = _matrix[0][1];
-			zz = _matrix[0][2];
-		}
-		else if (_matrix.getSizeRow() > 2 && _matrix.getSizeRow() > 0) {
-			xx = _matrix[0][0];
-			yy = _matrix[1][0];
-			zz = _matrix[2][0];
-		}
-		else {
-			throw std::exception("invalid matrix point3::operator=(matrix)");
-		}
-
-		return *this;
-	}
-	*/
 }

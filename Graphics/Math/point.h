@@ -7,14 +7,12 @@ using std::vector;
 
 namespace comp_lab {
 	class point_base {
-	private:
-		// abstract class' plug.
-		int emptyData = 0;
 	protected:
-		int size = 0;
 		bool transposed = false;
 
 	public:
+		int size = 0;
+
 		point_base() {}
 		point_base(int _size);
 		point_base(const point_base& _point);
