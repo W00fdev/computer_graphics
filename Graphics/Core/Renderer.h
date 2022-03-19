@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gl/glut.h>
-#include "Math/point.h"
+#include "../Math/point_varieties.h"
 
 namespace comp_lab {
 	class Renderer

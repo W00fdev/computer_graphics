@@ -1,60 +1,31 @@
 #pragma once
+#include <vector>
 
-#include "matrix.h"
+using std::vector;
+
+// POINT 
 
 namespace comp_lab {
-	class point2 {
-	protected:
-		int xx = 0;
-		int yy = 0;
-
-	public:
-		point2() {}
-		point2(int _x, int _y);
-		point2(const point2& _point);
-		point2(vector<int> _vector);
-		point2(const matrix& _matrix);
-
-		// Getters
-		virtual vector<int> getVector() const;
-		virtual matrix getMatrix() const;
-
-		int x() const;
-		int y() const;
-
-		virtual int operator[] (int index);
-
-		// Copy operators
-		virtual point2& operator= (const point2& _point) noexcept;
-
-		virtual point2& operator= (const vector<int>& _point);
-		virtual point2& operator= (const matrix& _matrix);
-	};
-
-	/*class point3 : public point2 {
+	class point_base {
 	private:
-		int zz;
+		// abstract class' plug.
+		int emptyData = 0;
+	protected:
+		int size = 0;
+		bool transposed = false;
 
 	public:
-		point3(int _x, int _y, int _z);
-		point3(const point3& _point);
-		point3(vector<int> _vector);
-		point3(const matrix& _matrix);
+		point_base() {}
+		point_base(int _size);
+		point_base(const point_base& _point);
 
-		// Getters
-		vector<int> getVector() const;
-		matrix getMatrix() const;
+		virtual point_base& operator= (const point_base& _point) = 0;
+		virtual point_base& operator= (const vector<int>& _vector) = 0;
 
-		int z() const;
+		virtual int& operator[](int _index) = 0;
 
-		int operator[] (int index);
+		virtual int at(int _index) const = 0;
 
-		// Copy operators
-
-		point3& operator= (const point3& _point) noexcept;
-		point3& operator= (const vector<int>& _point);
-		point3& operator= (const matrix& _matrix);
-		
+		virtual vector<int> getVector() const = 0;
 	};
-	*/
 }

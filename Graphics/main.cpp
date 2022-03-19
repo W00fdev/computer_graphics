@@ -83,9 +83,9 @@ void ellipseMidPoint()
 
 int main(int argc, char** argv)
 {
-    Renderer render;
-    render.Init(argc, argv);
-    render.StartGameLoop();
-    
+    //Renderer render;
+    //render.Init(argc, argv);
+    //render.StartGameLoop();
+
     return 0;
 }
