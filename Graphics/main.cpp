@@ -81,14 +81,21 @@ void ellipseMidPoint()
     //glFlush();
 //}
 
+struct point {
+    int x, y, z;
+    point(int _x, int _y, int _z) : x(_x), y(_y), z(_z) {}
+};
+
 int main(int argc, char** argv)
 {
     //Renderer render;
     //render.Init(argc, argv);
     //render.StartGameLoop();
 
-    point3 p1(point2{0, 1});
-    point3 p2 = p1;
+    point3 p_heavy(0, 1, 2);
+    point p_light(0, 1, 2);
+    std::cout << sizeof(p_heavy) << endl;
+    std::cout << sizeof(p_light) << endl;
 
     return 0;
 }

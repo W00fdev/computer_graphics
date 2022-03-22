@@ -9,23 +9,41 @@ namespace comp_lab {
 		int yy = 0;
 
 	public:
+		// Constructors
 		point2();
 		point2(int _x, int _y);
-		point2(const vector<int>& _vector);
+		point2(const std::vector<int>& _vector);
 		point2(const point_base& _point);
 
 		// Getters
-		virtual vector<int> getVector() const override;
+		virtual std::vector<int> getVector() const override;
 
 		virtual int x() const;
 		virtual int y() const;
 
 		virtual int& operator[] (int index) override;
-		virtual int at(int index) const override;
+		virtual int  at(int index) const override;
 
 		// Copy operators
-		virtual point_base& operator= (const point_base& _point) override ;
-		virtual point_base& operator= (const vector<int>& _point) override;
+		virtual point_base& operator= (const point_base& _point) override;
+		virtual point_base& operator= (const std::vector<int>& _point) override;
+
+		// Invert operator
+		virtual const point_base& operator-();
+
+		// Sum and substraction operators
+		const point2 operator+(const point_base& _point);
+		const point2 operator-(const point_base& _point);
+
+		// Sum/sub and equal operators
+		virtual point_base& operator+=(const point_base& _point);
+		virtual point_base& operator-=(const point_base& _point);
+
+		// is Equal operator
+		virtual bool operator==(const point_base& _point);
+
+		// Stream output operator 
+		friend std::ostream& operator<< (std::ostream& _s, const point2& _point);
 	};
 
 	class point3 : public point2 {
@@ -35,11 +53,11 @@ namespace comp_lab {
 	public:
 		point3();
 		point3(int _x, int _y, int _z);
-		point3(const vector<int>& _vector);
+		point3(const std::vector<int>& _vector);
 		point3(const point_base& _point);
 
 		// Getters
-		vector<int> getVector() const override;
+		std::vector<int> getVector() const override;
 
 		int z() const;
 
@@ -48,7 +66,24 @@ namespace comp_lab {
 
 		// Copy operators
 		point_base& operator= (const point_base& _point) override;
-		point_base& operator= (const vector<int>& _point) override;
+		point_base& operator= (const std::vector<int>& _point) override;
+
+		// Invert operator
+		virtual const point_base& operator-() override;
+
+		// Sum and substraction operators
+		const point3 operator+(const point_base& _point);
+		const point3 operator-(const point_base& _point);
+
+		// Sum/sub and equal operators
+		virtual point_base& operator+=(const point_base& _point) override;
+		virtual point_base& operator-=(const point_base& _point) override;
+
+		// is Equal operator
+		virtual bool operator==(const point_base& _point) override;
+
+		// Stream output operator 
+		friend std::ostream& operator<< (std::ostream& s, const point3& point);
 	};
 	
 }
