@@ -5,7 +5,7 @@
 
 using std::vector;
 
-namespace comp_lab {
+namespace graphics {
 	class matrix
 	{
 	private:

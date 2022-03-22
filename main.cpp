@@ -4,7 +4,7 @@
 #include "Core/Renderer.h"
 
 using namespace std;
-using namespace graphics;
+using namespace comp_lab;
 
 
 int rx = 100, ry = 125;
@@ -88,11 +88,14 @@ struct point {
 
 int main(int argc, char** argv)
 {
-    cout << sizeof(point3(1, 1, 1));
     //Renderer render;
     //render.Init(argc, argv);
     //render.StartGameLoop();
 
+    point3 p_heavy(0, 1, 2);
+    point p_light(0, 1, 2);
+    std::cout << sizeof(p_heavy) << endl;
+    std::cout << sizeof(p_light) << endl;
 
     return 0;
 }

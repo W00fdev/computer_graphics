@@ -1,6 +1,6 @@
 #include "matrix.h"
 
-namespace comp_lab {
+namespace graphics {
 
 	matrix::matrix(int _rowSize, int _colSize) {
 		if (_rowSize < 0 || _colSize < 0)

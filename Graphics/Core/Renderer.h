@@ -3,7 +3,7 @@
 #include <gl/glut.h>
 #include "../Math/point_varieties.h"
 
-namespace comp_lab {
+namespace graphics {
 	class Renderer
 	{
 	public:
