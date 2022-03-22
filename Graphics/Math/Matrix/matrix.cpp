@@ -10,10 +10,6 @@ namespace graphics {
 		col_size = _colSize;
 	}
 
-	matrix::matrix(const vector<vector<int>>& _data) {
-		data = _data;
-	}
-
 	matrix::matrix(const matrix& _matrix) {
 		data = _matrix.data;
 
@@ -53,13 +49,6 @@ namespace graphics {
 
 	int matrix::getSizeCol() const {
 		return col_size;
-	}
-
-	const vector<int>& matrix::operator[] (int index) const {
-		if (index < 0 || index >= row_size)
-			throw std::exception("Wrong index matrix's [].");
-
-		return data[index];
 	}
 
 }

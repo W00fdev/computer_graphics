@@ -15,17 +15,17 @@ namespace graphics {
 		int size1;
 		int size2;
 
-		//pointContainer 
-		
+		pointContainer data;
 		bool transposed = false;
 
 	public:
 		matrix_base() {}
 
-		virtual int& operator[](int _index) = 0;
-		virtual int  at(int _index) const = 0;
-	};
+		virtual void transpose() = 0;
 
+		virtual pointContainer& operator[](int _index) = 0;
+		virtual pointContainer  at(int _index) const = 0;
+	};
 
 	class matrix
 	{
@@ -40,7 +40,6 @@ namespace graphics {
 
 	public:
 		matrix(int _rowSize, int _colSize);
-		matrix(const vector<vector<int>>& _data);
 		matrix(const matrix& _matrix);
 
 		matrix sum(const matrix& _matrix);
@@ -63,13 +62,8 @@ namespace graphics {
 
 		// GETTERS
 
-		vector<int> getRows() const;
-		vector<int> getCols() const;
-
 		int getSizeRow() const;
 		int getSizeCol() const;
-
-		const vector<int>& operator[] (int index) const;
 	};
 }
 
