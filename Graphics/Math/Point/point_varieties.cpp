@@ -329,5 +329,34 @@ namespace graphics {
 // POINTN
 
 namespace graphics {
+	int& pointn::operator[](int _index) {
+		if (_index >= size || _index < 0)
+			throw std::exception("Wrong index at pointn[]");
 
+		return data[_index];
+	}
+
+	int  pointn::at(int _index) const {
+		if (_index >= size || _index < 0)
+			throw std::exception("Wrong index at pointn[]");
+
+		return data[_index];
+	}
+
+	// Copy operators
+	point_base& pointn::operator= (const point_base& _point) {
+		if (data != nullptr)
+			delete data;
+
+		size = _point.size;
+		data = new int[size];
+		for (int i = 0; i < size; i++)
+			data[i] = _point.size;
+	}
+
+	// Operator scalar multiplying
+	point_base& pointn::operator*= (int _scalar) {
+		for (int i = 0; i < size; i++)
+			data[i] *= _scalar;
+	}
 }

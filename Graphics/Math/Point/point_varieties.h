@@ -119,6 +119,15 @@ namespace graphics {
 			size = _size;
 			data = new int[size];
 		}
+
+		virtual int& operator[](int _index) override;
+		virtual int  at(int _index) const override;
+
+		// Copy operators
+		virtual point_base& operator= (const point_base& _point) override;
+
+		// Operator scalar multiplying
+		virtual point_base& operator*= (int _scalar) override;
 	};
 
 	using pointn = point_dynamic;
