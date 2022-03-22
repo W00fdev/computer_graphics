@@ -3,14 +3,36 @@
 #include <exception>
 #include <vector>
 
+#include "../Point/point_varieties.h"
+#include "PointContainer/point_container.h"
+
 using std::vector;
 
 namespace graphics {
+
+	class matrix_base {
+	protected:
+		int size1;
+		int size2;
+
+		//pointContainer 
+		
+		bool transposed = false;
+
+	public:
+		matrix_base() {}
+
+		virtual int& operator[](int _index) = 0;
+		virtual int  at(int _index) const = 0;
+	};
+
+
 	class matrix
 	{
 	private:
 		vector<vector<int>> data;
 		
+		// Can't name row and call because of transpose functionality.
 		int row_size = 0;
 		int col_size = 0;
 
