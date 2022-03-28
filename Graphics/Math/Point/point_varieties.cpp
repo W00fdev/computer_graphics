@@ -39,6 +39,11 @@ namespace graphics {
 		return yy;
 	}
 
+	int point2::z() const {
+		throw std::exception("Point2.z() doesn't exist.");
+		return NULL;
+	}
+
 	int& point2::operator[] (int _index) {
 		if (_index < 0 || _index >= 2)
 			throw std::exception("Wrong index [] at point2");
@@ -327,7 +332,6 @@ namespace graphics {
 }
 
 // POINTN
-
 namespace graphics {
 	int& pointn::operator[](int _index) {
 		if (_index >= size || _index < 0)
@@ -343,6 +347,18 @@ namespace graphics {
 		return data[_index];
 	}
 
+	int pointn::x() const {
+		return at(0);
+	}
+
+	int pointn::y() const {
+		return at(1);
+	}
+
+	int pointn::z() const {
+		return at(2);
+	}
+
 	// Copy operators
 	point_base& pointn::operator= (const point_base& _point) {
 		if (data != nullptr)
@@ -352,11 +368,17 @@ namespace graphics {
 		data = new int[size];
 		for (int i = 0; i < size; i++)
 			data[i] = _point.size;
+
+		return *this;
 	}
 
 	// Operator scalar multiplying
 	point_base& pointn::operator*= (int _scalar) {
 		for (int i = 0; i < size; i++)
 			data[i] *= _scalar;
+		
+		return *this;
 	}
+
+
 }

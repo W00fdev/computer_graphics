@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gl/glut.h>
-#include "../Math/Point/point_varieties.h"
+#include "../Math/Matrix/matrix.h"
 
 namespace graphics {
 	class Renderer

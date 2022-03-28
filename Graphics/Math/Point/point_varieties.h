@@ -18,8 +18,9 @@ namespace graphics {
 		// Getters
 		//virtual std::vector<int> getVector() const override;
 
-		virtual int x() const;
-		virtual int y() const;
+		virtual int x() const override;
+		virtual int y() const override;
+		virtual int z() const override;
 
 		virtual int& operator[] (int index) override;
 		virtual int  at(int index) const override;
@@ -67,7 +68,7 @@ namespace graphics {
 		// Getters
 		//std::vector<int> getVector() const override;
 
-		int z() const;
+		virtual int z() const override;
 
 		int& operator[] (int index) override;
 		int at(int index) const override;
@@ -122,6 +123,10 @@ namespace graphics {
 
 		virtual int& operator[](int _index) override;
 		virtual int  at(int _index) const override;
+
+		virtual int x() const override;
+		virtual int y() const override;
+		virtual int z() const override;
 
 		// Copy operators
 		virtual point_base& operator= (const point_base& _point) override;

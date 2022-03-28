@@ -3,37 +3,41 @@
 #include "../../Point/point_varieties.h"
 
 namespace graphics {
+	// It's best to use Undefined inheritor.
+	enum class pointContainerType { UNDEFINED = 1, POINT2 = 2, POINT3 = 3, POINTN = 4};
 
+	// Move this to constants.h
 	const int maxPointContainerSize = 10;
 
-	enum class pointContainerType { UNDEFINED = 0, POINT2 = 1, POINT3 = 2, POINTN = 3};
+	const pointContainerType TYPEUNDEF	= pointContainerType::UNDEFINED;
+	const pointContainerType TYPE2		= pointContainerType::POINT2;
+	const pointContainerType TYPE3		= pointContainerType::POINT3;
+	const pointContainerType TYPEN		= pointContainerType::POINTN;
 
 	class pointContainer {
 	protected:
 		point_base* pointData = nullptr;
 		pointContainerType type = pointContainerType::UNDEFINED;
-		//size_t size;
+
+		void checkWrongType(const pointContainerType _type, const char* _functionPlace) const;
+	public:
+		int size = 0;
+
+		pointContainer() {}
+		pointContainer(size_t _size);
+		~pointContainer();
 
 		void defineDataType(size_t _size);
 
-	public:
-		pointContainer() {}
-		pointContainer(size_t size);
-		virtual ~pointContainer();
+		int& operator[](int _index); 
+		int at(int _index) const;
 
-		virtual pointContainer& operator= (const pointContainer& _point);
-	};
+		int x() const;
+		int y() const;
+		int z() const;
 
-	class pointContainer2 : public pointContainer {
-	public:
-		pointContainer2();
-		~pointContainer2();
-	};
-
-	class pointContainer3 : public pointContainer {
-	public:
-		pointContainer3();
-		~pointContainer3();
+		pointContainer& operator= (const pointContainer& _pointContainer);
+		pointContainer& operator= (const point_base& _point);
 	};
 }
 

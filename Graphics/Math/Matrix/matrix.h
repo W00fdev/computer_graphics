@@ -10,60 +10,70 @@ using std::vector;
 
 namespace graphics {
 
+	// Move to constants.h
+	const int MATRIX_2_SIZE = 2;
+	const int MATRIX_3_SIZE = 3;
+
+	struct matrix_size {
+		int size1, size2;
+		matrix_size(int _size1 = 0, int _size2 = 0) {
+			size1 = _size1;
+			size2 = _size2;
+		}
+	};
+
 	class matrix_base {
 	protected:
-		int size1;
-		int size2;
-
 		pointContainer data;
-		bool transposed = false;
+		matrix_size size;
 
+		bool transposed = false;
 	public:
 		matrix_base() {}
 
-		virtual void transpose() = 0;
+		void transpose() { transposed = !transposed; };
 
 		virtual pointContainer& operator[](int _index) = 0;
 		virtual pointContainer  at(int _index) const = 0;
+
+		const matrix_size& getSize() const { return size; };
 	};
 
 	class matrix
 	{
-	private:
-		vector<vector<int>> data;
-		
-		// Can't name row and call because of transpose functionality.
-		int row_size = 0;
-		int col_size = 0;
-
-		bool transposed = false;
-
 	public:
-		matrix(int _rowSize, int _colSize);
-		matrix(const matrix& _matrix);
+		matrix(int _size1, int _size2) {};
+		matrix(const matrix& _matrix) {};
 
-		matrix sum(const matrix& _matrix);
+		//matrix sum(const matrix& _matrix);
 
-		void transpose();
+		//void transpose();
 
 		// Operators
 
-		matrix operator-() const;
+		//matrix operator-() const;
 
-		matrix operator+(const matrix& _matrix);
-		matrix operator*(const matrix& _matrix);
-		matrix operator/(const matrix& _matrix);
-		matrix operator^(const int);				// pow and transpose
+		//matrix operator+(const matrix& _matrix);
+		//matrix operator*(const matrix& _matrix);
+		//matrix operator/(const matrix& _matrix);
+		//matrix operator^(const int);				// pow and transpose
 
-		matrix& operator=(const matrix&& _matrix);
+		//matrix& operator=(const matrix&& _matrix);
 
-		matrix& operator+=(const matrix& _matrix);
-		matrix& operator-=(const matrix& _matrix);
+		//matrix& operator+=(const matrix& _matrix);
+		//matrix& operator-=(const matrix& _matrix);
 
 		// GETTERS
-
-		int getSizeRow() const;
-		int getSizeCol() const;
 	};
+
+	//class matrix2 : public matrix_base {
+	//public:
+	//	matrix2();
+	//	matrix2(const matrix2& _matrix);
+	//	//matrix2(const matrix& _matrix);
+
+	//	//virtual pointContainer& operator[](int _index) override;
+	//	//virtual pointContainer  at(int _index) const override;
+	//};
 }
 

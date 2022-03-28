@@ -6,7 +6,6 @@
 using namespace std;
 using namespace graphics;
 
-
 int rx = 100, ry = 125;
 int xCenter = 250, yCenter = 250;
 
@@ -86,13 +85,33 @@ struct point {
     point(int _x, int _y, int _z) : x(_x), y(_y), z(_z) {}
 };
 
+void printSizeCheck()
+{
+    point2 p2;
+    point3 p3;
+
+    pointContainer pc2(2);
+
+    cout << "Point2: " << sizeof(p2) << endl;
+    cout << "Point3: " << sizeof(p3) << endl;
+
+    cout << "PointContainerType: " << sizeof(pointContainerType) << endl;
+
+    cout << "Empty PointContainer2: " << sizeof(pointContainer(2)) << endl;
+    cout << "Empty PointContainer3: " << sizeof(pointContainer(3)) << endl;
+
+    cout << "PointContainer2: " << sizeof(pointContainer(2)) << endl;
+    cout << "PointContainer3: " << sizeof(pointContainer(3)) << endl;
+
+}
+
 int main(int argc, char** argv)
 {
-    cout << sizeof(point3(1, 1, 1));
+
+
     //Renderer render;
     //render.Init(argc, argv);
     //render.StartGameLoop();
-
 
     return 0;
 }
