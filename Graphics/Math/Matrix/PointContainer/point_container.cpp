@@ -223,12 +223,8 @@ namespace graphics {
 	}
 
 	pointArray::pointArray(const pointArray& _pointArray) {
-		size = _pointArray.size;
-		if (size > 0)
-			points = new pointWrapper[size];
-
-		for (size_t i = 0; i < size; i++)
-			points[i] = _pointArray.at(i);
+		size = 0;
+		this->operator=(_pointArray);
 	}
 
 	void pointArray::add(const pointWrapper& _pointWrapper) {
@@ -300,7 +296,19 @@ namespace graphics {
 
 	// Operators:
 	pointArray& pointArray::operator= (const pointArray& _pointArray) {
+		if (size != 0 && points != nullptr) {
+			delete[] points;
+			points = nullptr;
+		}
+		
+		size = _pointArray.size;
+		if (size > 0)
+			points = new pointWrapper[size];
 
+		for (size_t i = 0; i < size; i++)
+			points[i] = _pointArray.at(i);
+
+		return *this;
 	}
 
 	// Invert operator
@@ -311,36 +319,75 @@ namespace graphics {
 
 	// Multiply operator
 	const pointArray pointArray::operator*(const pointArray& _pointArray) const {
+		if (_pointArray.size != size)
+			throw std::exception("Wrong dimensions in pointArray::operator*()");
 
+		pointArray result = *this;
+
+		for (size_t i = 0; i < size; i++)
+			result[i].getPointBase() *= _pointArray.at(i).getPointBase();
+	
+		return result;
 	}
 
 	const pointArray pointArray::operator*(int _scalar) const {
+		pointArray result = *this;
+
 		for (size_t i = 0; i < size; i++)
-			points[i].getPointBase() *= _scalar;
+			result[i].getPointBase() *= _scalar;
 		
+		return result;
 	}
 
 	// Sum and substraction operators
 	const pointArray pointArray::operator+(const pointArray& _pointArray) const {
+		if (_pointArray.size != size)
+			throw std::exception("Wrong dimensions in pointArray::operator*()");
 
+		pointArray result = *this;
+
+		for (size_t i = 0; i < size; i++)
+			result[i].getPointBase() += _pointArray.at(i).getPointBase();
+
+		return result;
 	}
 
 	const pointArray pointArray::operator-(const pointArray& _pointArray) const {
+		if (_pointArray.size != size)
+			throw std::exception("Wrong dimensions in pointArray::operator*()");
 
+		pointArray result = *this;
+		return -result + _pointArray;
 	}
 
 	// Sum/sub and equal operators
 	pointArray& pointArray::operator+=(const pointArray& _pointArray) {
+		if (_pointArray.size != size)
+			throw std::exception("Wrong dimensions in pointArray::operator*()");
 
+		for (size_t i = 0; i < size; i++)
+			points[i].getPointBase() += _pointArray.at(i).getPointBase();
+
+		return *this;
 	}
 
 	pointArray& pointArray::operator-=(const pointArray& _pointArray) {
+		if (_pointArray.size != size)
+			throw std::exception("Wrong dimensions in pointArray::operator*()");
 
+		*this = -(*this) + _pointArray;
+		return *this;
 	}
 
 	// Multiplication operator
 	pointArray& pointArray::operator*=(const pointArray& _pointArray) {
+		if (_pointArray.size != size)
+			throw std::exception("Wrong dimensions in pointArray::operator*=()");
 
+		for (size_t i = 0; i < size; i++)
+			points[i].getPointBase() *= _pointArray.at(i).getPointBase();
+
+		return *this;
 	}
 
 	pointArray& pointArray::operator*= (int _scalar) {

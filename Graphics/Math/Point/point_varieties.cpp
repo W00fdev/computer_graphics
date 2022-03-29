@@ -397,11 +397,39 @@ namespace graphics {
 		return *this;
 	}
 
-	// Operator scalar multiplying
+	const pointn operator+(const point_base& _point1, const point_base& _point2) {
+
+	}
+
+	const pointn operator-(const point_base& _point1, const point_base& _point2) {
+
+	}
+
+	// Operators multiplying
+	point_base& pointn::operator*= (const point_base& _point) {
+		if (size != _point.size)
+			throw std::exception("Wrong dimensions in pointn::operator*=()");
+
+		for (int i = 0; i < size; i++)
+			data[i] *= _point.at(i);
+
+		return *this;
+	}
+
 	point_base& pointn::operator*= (int _scalar) {
 		for (int i = 0; i < size; i++)
 			data[i] *= _scalar;
 		
+		return *this;
+	}
+
+	point_base& pointn::operator+=(const point_base& _point) {
+		*this = *this + _point;
+		return *this;
+	}
+
+	point_base& pointn::operator-=(const point_base& _point) {
+		*this = *this - _point;
 		return *this;
 	}
 

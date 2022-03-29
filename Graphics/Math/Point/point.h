@@ -36,7 +36,11 @@ namespace graphics {
 		virtual const point_base& operator-() = 0;
 
 		// Operator scalar multiplying
+		virtual point_base& operator*= (const point_base& _point) = 0;
 		virtual point_base& operator*= (int _scalar) = 0;
+
+		virtual point_base& operator+= (const point_base& _point) = 0;
+		virtual point_base& operator-= (const point_base& _point) = 0;
 
 		virtual bool operator== (const point_base& _point) const = 0;
 

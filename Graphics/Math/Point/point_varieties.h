@@ -41,11 +41,11 @@ namespace graphics {
 		const point2 operator-(const point_base& _point) const;
 
 		// Sum/sub and equal operators
-		virtual point_base& operator+=(const point_base& _point);
-		virtual point_base& operator-=(const point_base& _point);
+		virtual point_base& operator+=(const point_base& _point) override;
+		virtual point_base& operator-=(const point_base& _point) override;
 
 		// Multiplication operator
-		virtual point_base& operator*=(const point_base& _point);
+		virtual point_base& operator*=(const point_base& _point) override;
 		virtual point_base& operator*= (int _scalar) override;
 
 		// is Equal operator
@@ -135,8 +135,14 @@ namespace graphics {
 		// Invert operator
 		virtual const point_base& operator-() override;
 
-		// Operator scalar multiplying
+		friend const pointn operator+(const point_base& _point1, const point_base& _point2);
+		friend const pointn operator-(const point_base& _point1, const point_base& _point2);
+
+		virtual point_base& operator*= (const point_base& _point) override;
 		virtual point_base& operator*= (int _scalar) override;
+
+		virtual point_base& operator+=(const point_base& _point) override;
+		virtual point_base& operator-=(const point_base& _point) override;
 
 		virtual bool operator== (const point_base& _point) const override;
 	};
