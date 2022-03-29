@@ -8,10 +8,12 @@ namespace graphics {
 	const int maxPointArraySize = 10;
 
 	// Type of the pointWrapper
-	enum class pointWrapperType { UNDEFINED = 1, POINT2 = 2, POINT3 = 3, POINTN = 4 };
+	enum class pointType { /*UNCHECK = 0,*/ UNDEFINED = 1, POINT2 = 2, POINT3 = 3, POINTN = 4 };
 
-	const pointWrapperType TYPEUNDEF = pointWrapperType::UNDEFINED;
-	const pointWrapperType TYPE2 = pointWrapperType::POINT2;
-	const pointWrapperType TYPE3 = pointWrapperType::POINT3;
-	const pointWrapperType TYPEN = pointWrapperType::POINTN;
+	// Only for pointArrayConcrete (matrixPoints) [not needed]
+	// const pointType TYPEUNCHECK = pointType::UNDEFINED;
+	const pointType TYPEUNDEF	= pointType::UNDEFINED;
+	const pointType TYPE2		= pointType::POINT2;
+	const pointType TYPE3		= pointType::POINT3;
+	const pointType TYPEN		= pointType::POINTN;
 }

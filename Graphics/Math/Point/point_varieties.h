@@ -30,7 +30,7 @@ namespace graphics {
 		//virtual point_base& operator= (const std::vector<int>& _point) override;
 
 		// Invert operator
-		virtual const point_base& operator-();
+		virtual const point_base& operator-() override;
 
 		// Multiply operator
 		const point2 operator*(const point_base& _point) const;
@@ -49,7 +49,7 @@ namespace graphics {
 		virtual point_base& operator*= (int _scalar) override;
 
 		// is Equal operator
-		virtual bool operator==(const point_base& _point);
+		virtual bool operator==(const point_base& _point) const override;
 
 		// Stream output operator 
 		//friend std::ostream& operator<< (std::ostream& _s, const point2& _point);
@@ -97,7 +97,7 @@ namespace graphics {
 		virtual point_base& operator-=(const point_base& _point) override;
 
 		// is Equal operator
-		virtual bool operator== (const point_base& _point) override;
+		virtual bool operator== (const point_base& _point) const override;
 
 		// Stream output operator 
 		//friend std::ostream& operator<< (std::ostream& s, const point3& point);
@@ -132,8 +132,13 @@ namespace graphics {
 		// Copy operators
 		virtual point_base& operator= (const point_base& _point) override;
 
+		// Invert operator
+		virtual const point_base& operator-() override;
+
 		// Operator scalar multiplying
 		virtual point_base& operator*= (int _scalar) override;
+
+		virtual bool operator== (const point_base& _point) const override;
 	};
 
 	using pointn = point_dynamic;

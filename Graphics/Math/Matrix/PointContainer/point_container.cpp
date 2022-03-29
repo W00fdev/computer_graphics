@@ -10,8 +10,8 @@ namespace graphics {
 		defineDataType(_size);
 	}
 
-	pointWrapper::pointWrapper(pointWrapperType _pointWrapper) {
-		defineDataType(_pointWrapper);
+	pointWrapper::pointWrapper(pointType _type) {
+		defineDataType(_type);
 	}
 
 	pointWrapper::pointWrapper(const pointWrapper& _pointWrapper) {
@@ -37,20 +37,20 @@ namespace graphics {
 
 		if (_size == 2) {
 			pointData = new point2();
-			type = pointWrapperType::POINT2;
+			type = pointType::POINT2;
 		}
 		else if (_size == 3)
 		{
 			pointData = new point3();
-			type = pointWrapperType::POINT3;
+			type = pointType::POINT3;
 		}
 		else {
 			pointData = new pointn(_size);
-			type = pointWrapperType::POINTN;
+			type = pointType::POINTN;
 		}
 	}
 
-	void pointWrapper::defineDataType(pointWrapperType _type) {
+	void pointWrapper::defineDataType(pointType _type) {
 		if (type == _type)
 			return;
 
@@ -76,7 +76,7 @@ namespace graphics {
 				pointData->operator=(*_pointWrapper.pointData);
 				return *this;
 			}
-			type = pointWrapperType::UNDEFINED;
+			type = pointType::UNDEFINED;
 			delete pointData;
 			pointData = nullptr;
 		}
@@ -99,7 +99,7 @@ namespace graphics {
 				pointData->operator=(_point);
 				return *this;
 			}
-			type = pointWrapperType::UNDEFINED;
+			type = pointType::UNDEFINED;
 			delete pointData;
 		}
 
@@ -108,22 +108,22 @@ namespace graphics {
 		return *this;
 	}
 
-	void pointWrapper::checkWrongType(const pointWrapperType _type, const char* _functionPlace) const {
+	void pointWrapper::checkWrongType(const pointType _type, const char* _functionPlace) const {
 		if (type != _type)
 			return;			// OK
 
 		std::string errorType;
 		switch (_type) {
-		case pointWrapperType::UNDEFINED:
+		case pointType::UNDEFINED:
 			errorType = "UNDEFINED";
 			break;
-		case pointWrapperType::POINT2:
+		case pointType::POINT2:
 			errorType = "POINT2";
 			break;
-		case pointWrapperType::POINT3:
+		case pointType::POINT3:
 			errorType = "POINT3";
 			break;
-		case pointWrapperType::POINTN:
+		case pointType::POINTN:
 			errorType = "POINTN";
 			break;
 		default:
@@ -148,6 +148,10 @@ namespace graphics {
 		return pointData->at(_index);
 	}
 
+	point_base& pointWrapper::getPointBase() {
+		return *(pointData);
+	}
+
 	int pointWrapper::x() const {
 		checkWrongType(TYPEUNDEF, "x()\0");
 			
@@ -165,6 +169,14 @@ namespace graphics {
 		checkWrongType(TYPE2, "z()\0");
 
 		return pointData->z();
+	}
+
+	bool pointWrapper::operator==(const pointWrapper& _pointWrapper) {
+		return type == _pointWrapper.type && (*pointData) == (*_pointWrapper.pointData);
+	}
+
+	bool pointWrapper::operator!=(const pointWrapper& _pointWrapper) {
+		return type != _pointWrapper.type || (*pointData) != (*_pointWrapper.pointData);
 	}
 
 	std::ostream& operator<<(std::ostream& _s, const pointWrapper& _pointWrapper) {
@@ -189,7 +201,7 @@ namespace graphics {
 		points = new pointWrapper[size];
 	}
 
-	pointArray::pointArray(size_t _size, pointWrapperType _type) {
+	pointArray::pointArray(size_t _size, pointType _type) {
 		if (_size > maxPointArraySize)
 			throw std::exception("You can't create pointArray of size > maxPointArraySize");
 
@@ -208,6 +220,15 @@ namespace graphics {
 		points = new pointWrapper[size];
 		for (size_t i = 0; i < size; i++)
 			points[i] = _pointWrapper;
+	}
+
+	pointArray::pointArray(const pointArray& _pointArray) {
+		size = _pointArray.size;
+		if (size > 0)
+			points = new pointWrapper[size];
+
+		for (size_t i = 0; i < size; i++)
+			points[i] = _pointArray.at(i);
 	}
 
 	void pointArray::add(const pointWrapper& _pointWrapper) {
@@ -275,5 +296,74 @@ namespace graphics {
 		_s << "}";
 
 		return _s;
+	}
+
+	// Operators:
+	pointArray& pointArray::operator= (const pointArray& _pointArray) {
+
+	}
+
+	// Invert operator
+	const pointArray& pointArray::operator-() {
+		for (size_t i = 0; i < size; i++)
+			-(points[i].getPointBase());
+	}
+
+	// Multiply operator
+	const pointArray pointArray::operator*(const pointArray& _pointArray) const {
+
+	}
+
+	const pointArray pointArray::operator*(int _scalar) const {
+		for (size_t i = 0; i < size; i++)
+			points[i].getPointBase() *= _scalar;
+		
+	}
+
+	// Sum and substraction operators
+	const pointArray pointArray::operator+(const pointArray& _pointArray) const {
+
+	}
+
+	const pointArray pointArray::operator-(const pointArray& _pointArray) const {
+
+	}
+
+	// Sum/sub and equal operators
+	pointArray& pointArray::operator+=(const pointArray& _pointArray) {
+
+	}
+
+	pointArray& pointArray::operator-=(const pointArray& _pointArray) {
+
+	}
+
+	// Multiplication operator
+	pointArray& pointArray::operator*=(const pointArray& _pointArray) {
+
+	}
+
+	pointArray& pointArray::operator*= (int _scalar) {
+		for (size_t i = 0; i < size; i++)
+			points[i].getPointBase() *= _scalar;
+
+		return *this;
+	}
+
+	// is Equal operator
+	bool pointArray::operator==(const pointArray& _pointArray) const {
+		if (size != _pointArray.size)
+			return false;
+
+		for (size_t i = 0; i < size; i++) {
+			if (points[i] != _pointArray.points->at(i))
+				return false;
+		}
+
+		return true;
+	}
+
+	bool pointArray::operator!=(const pointArray& _pointArray) const {
+		return ((*this) == _pointArray);
 	}
 }

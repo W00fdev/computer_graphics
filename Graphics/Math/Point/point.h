@@ -32,8 +32,15 @@ namespace graphics {
 		virtual point_base& operator= (const point_base& _point) = 0;
 		//virtual point_base& operator= (const std::vector<int>& _vector) = 0;
 
+		// Invert operator
+		virtual const point_base& operator-() = 0;
+
 		// Operator scalar multiplying
 		virtual point_base& operator*= (int _scalar) = 0;
+
+		virtual bool operator== (const point_base& _point) const = 0;
+
+		friend bool operator!= (const point_base& _point1, const point_base& _point2);
 
 		friend std::ostream& operator<< (std::ostream& s, const point_base& point);
 	};

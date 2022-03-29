@@ -2,26 +2,29 @@
 
 #include "../../Point/point_varieties.h"
 
+// POINT_WRAPPER
 namespace graphics {
 	class pointWrapper {
 	protected:
 		point_base* pointData = nullptr;
-		pointWrapperType type = pointWrapperType::UNDEFINED;
+		pointType type = TYPEUNDEF;
 
-		void checkWrongType(const pointWrapperType _type, const char* _functionPlace) const;
+		void checkWrongType(const pointType _type, const char* _functionPlace) const;
 	public:
 
 		pointWrapper();
 		pointWrapper(size_t _size);
-		pointWrapper(pointWrapperType _type);
+		pointWrapper(pointType _type);
 		pointWrapper(const pointWrapper& _pointWrapper);
 		~pointWrapper();
 
 		void defineDataType(size_t _size);
-		void defineDataType(pointWrapperType _type);
+		void defineDataType(pointType _type);
 
 		int& operator[](int _index); 
 		int at(int _index) const;
+
+		point_base& getPointBase();
 
 		int x() const;
 		int y() const;
@@ -29,6 +32,9 @@ namespace graphics {
 
 		pointWrapper& operator= (const pointWrapper& _pointWrapper);
 		pointWrapper& operator= (const point_base& _point);
+
+		bool operator==(const pointWrapper& _pointWrapper);
+		bool operator!=(const pointWrapper& _pointWrapper);
 
 		friend std::ostream& operator<<(std::ostream& _s, const pointWrapper& _point);
 	};
@@ -48,10 +54,11 @@ namespace graphics {
 
 		pointArray();
 		pointArray(size_t _size);
-		pointArray(size_t _size, pointWrapperType _type);
+		pointArray(size_t _size, pointType _type);
 		pointArray(size_t _size, const pointWrapper& _pointWrapper);
+		pointArray(const pointArray& _pointArray);
 
-		void add(const pointWrapper& _pointWrapper);
+		virtual void add(const pointWrapper& _pointWrapper);
 		void remove(int _index);
 
 		pointWrapper& operator[](int _index);
@@ -61,28 +68,42 @@ namespace graphics {
 		friend std::ostream& operator<< (std::ostream& _s, const pointArray& _pointArray);
 
 		// Operators:
-		pointArray& operator= (const pointArray& _pointArray);
+		virtual pointArray& operator= (const pointArray& _pointArray);
 
 		// Invert operator
 		const pointArray& operator-();
 
 		// Multiply operator
-		const pointArray operator*(const pointArray& _pointArray) const;
+		virtual const pointArray operator*(const pointArray& _pointArray) const;
 		const pointArray operator*(int _scalar) const;
 
 		// Sum and substraction operators
-		const pointArray operator+(const pointArray& _pointArray) const;
-		const pointArray operator-(const pointArray& _pointArray) const;
+		virtual const pointArray operator+(const pointArray& _pointArray) const;
+		virtual const pointArray operator-(const pointArray& _pointArray) const;
 
 		// Sum/sub and equal operators
-		pointArray& operator+=(const pointArray& _pointArray);
-		pointArray& operator-=(const pointArray& _pointArray);
+		virtual pointArray& operator+=(const pointArray& _pointArray);
+		virtual pointArray& operator-=(const pointArray& _pointArray);
 
 		// Multiplication operator
-		pointArray& operator*=(const pointArray& _pointArray);
-		pointArray& operator*= (int _scalar);
+		virtual pointArray& operator*=(const pointArray& _pointArray);
+		virtual pointArray& operator*= (int _scalar);
 
 		// is Equal operator
-		bool operator==(const pointArray& _pointArray);
+		virtual bool operator==(const pointArray& _pointArray) const;
+		bool operator!=(const pointArray& _pointArray) const;
 	};
+}
+
+namespace graphics {
+	
+	// Constant type of values
+	class pointArrayConcrete : public pointArray {
+	protected:
+		pointType arrayType = TYPEUNDEF;
+	public:
+
+	};
+
+	using matrixPoints = pointArrayConcrete;
 }

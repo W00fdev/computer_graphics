@@ -99,7 +99,7 @@ void printSizeCheck()
     cout << "Point2: " << sizeof(p2) << endl;
     cout << "Point3: " << sizeof(p3) << endl;
 
-    cout << "PointWrapperType: " << sizeof(pointWrapperType) << endl;
+    cout << "PointWrapperType: " << sizeof(pointType) << endl;
 
     cout << "Empty PointWrapper2: " << sizeof(pointWrapper(2)) << endl;
     cout << "Empty PointWrapper3: " << sizeof(pointWrapper(3)) << endl;

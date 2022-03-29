@@ -14,6 +14,10 @@ namespace graphics {
 		_s << "}";
 		return _s;
 	}
+
+	bool operator!= (const point_base& _point1, const point_base& _point2) {
+		return !(_point1 == _point2);
+	}
 }
 
 // POINT2
@@ -153,7 +157,7 @@ namespace graphics {
 	}
 
 	// is Equal operator
-	bool point2::operator==(const point_base& _point) {
+	bool point2::operator==(const point_base& _point) const {
 		return xx == _point.at(0) && yy == _point.at(1);
 	}
 
@@ -330,7 +334,7 @@ namespace graphics {
 	}
 
 	// is Equal operator
-	bool point3::operator==(const point_base& _point) {
+	bool point3::operator==(const point_base& _point) const {
 		bool zz_equals = false;
 		if (_point.size == 3)
 			zz_equals = zz == _point.at(2);
@@ -386,6 +390,13 @@ namespace graphics {
 		return *this;
 	}
 
+	const point_base& pointn::operator-() {
+		for (int i = 0; i < size; i++)
+			data[i] = -data[i];
+
+		return *this;
+	}
+
 	// Operator scalar multiplying
 	point_base& pointn::operator*= (int _scalar) {
 		for (int i = 0; i < size; i++)
@@ -394,5 +405,15 @@ namespace graphics {
 		return *this;
 	}
 
+	bool pointn::operator== (const point_base& _point) const {
+		if (size != _point.size)
+			return false;
 
+		for (int i = 0; i < size; i++) {
+			if (data[i] != _point.at(i))
+				return false;
+		}
+
+		return true;
+	}
 }
