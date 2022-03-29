@@ -218,13 +218,39 @@ namespace graphics {
 
 		newPoints[size] = _pointWrapper;
 		size++;
-		delete points;
-		points = nullptr;
+		delete[] points;
 		points = newPoints;
 	}
 
+	// Without capacity variant.
 	void pointArray::remove(int _index) {
+		if (_index < 0 || _index >= maxPointArraySize)
+			throw std::exception("Wrong index at pointArray::remove()");
 
+		if (size > 1) {
+			pointWrapper* newPoints = new pointWrapper[(size - 1)];
+
+			size_t j = 0;
+			for (size_t i = 0; i < size; i++)
+				if (i != _index)
+					newPoints[j++] = points[i];
+
+			size--;
+			delete[] points;
+			points = newPoints;
+			return;
+		} 
+
+		if (points == nullptr)
+		{
+			throw std::exception("Bad try to remove element in empty pointArray");
+			return;
+		}
+
+		// Only 1 element in array.
+		delete[] points;
+		points = nullptr;
+		size = 0;
 	}
 
 	pointWrapper& pointArray::operator[](int _index) {
@@ -238,8 +264,14 @@ namespace graphics {
 
 	std::ostream& operator<< (std::ostream& _s, const pointArray& _pointArray) {
 		_s << "{";
+		if (_pointArray.size == 0u)
+			_s << "EMPTY POINTS";
 		for (size_t i = 0u; i < _pointArray.size; i++)
-			_s << _pointArray.at(i) << ", ";
+		{
+			_s << _pointArray.at(i);
+			if (i + 1 < _pointArray.size)
+				_s << ", ";
+		}
 		_s << "}";
 
 		return _s;

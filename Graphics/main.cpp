@@ -116,6 +116,9 @@ void printSizeCheck()
     pc4 = p33;
 
     pArr.add(pc4);
+    pArr.remove(0);
+    pArr.remove(0);
+    pArr.remove(0);
 
     cout << endl << pArr << endl;
 }
