@@ -88,26 +88,41 @@ struct point {
 void printSizeCheck()
 {
     point2 p2;
-    point3 p3;
+    point3 p3 (1, 0, -1);
 
-    pointContainer pc2(2);
+    pointWrapper pc2(2);
+    pointWrapper pc3(3);
+
+    pc2 = p2;
+    pc3 = p3;
 
     cout << "Point2: " << sizeof(p2) << endl;
     cout << "Point3: " << sizeof(p3) << endl;
 
-    cout << "PointContainerType: " << sizeof(pointContainerType) << endl;
+    cout << "PointWrapperType: " << sizeof(pointWrapperType) << endl;
 
-    cout << "Empty PointContainer2: " << sizeof(pointContainer(2)) << endl;
-    cout << "Empty PointContainer3: " << sizeof(pointContainer(3)) << endl;
+    cout << "Empty PointWrapper2: " << sizeof(pointWrapper(2)) << endl;
+    cout << "Empty PointWrapper3: " << sizeof(pointWrapper(3)) << endl;
 
-    cout << "PointContainer2: " << sizeof(pointContainer(2)) << endl;
-    cout << "PointContainer3: " << sizeof(pointContainer(3)) << endl;
+    cout << "PointWrapper2: " << sizeof(pc2) << endl;
+    cout << "PointWrapper3: " << sizeof(pc3) << endl;
 
+    //pointWrapper* pArr = new pointWrapper[10]{  };
+    pointArray pArr(2, pc3);
+    cout << pArr << endl;
+
+    point3 p33(-1, -2, -3);
+    pointWrapper pc4(3);
+    pc4 = p33;
+
+    pArr.add(pc4);
+
+    cout << endl << pArr << endl;
 }
 
 int main(int argc, char** argv)
 {
-
+    printSizeCheck();
 
     //Renderer render;
     //render.Init(argc, argv);

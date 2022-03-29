@@ -3,31 +3,22 @@
 #include "../../Point/point_varieties.h"
 
 namespace graphics {
-	// It's best to use Undefined inheritor.
-	enum class pointContainerType { UNDEFINED = 1, POINT2 = 2, POINT3 = 3, POINTN = 4};
-
-	// Move this to constants.h
-	const int maxPointContainerSize = 10;
-
-	const pointContainerType TYPEUNDEF	= pointContainerType::UNDEFINED;
-	const pointContainerType TYPE2		= pointContainerType::POINT2;
-	const pointContainerType TYPE3		= pointContainerType::POINT3;
-	const pointContainerType TYPEN		= pointContainerType::POINTN;
-
-	class pointContainer {
+	class pointWrapper {
 	protected:
 		point_base* pointData = nullptr;
-		pointContainerType type = pointContainerType::UNDEFINED;
+		pointWrapperType type = pointWrapperType::UNDEFINED;
 
-		void checkWrongType(const pointContainerType _type, const char* _functionPlace) const;
+		void checkWrongType(const pointWrapperType _type, const char* _functionPlace) const;
 	public:
-		int size = 0;
 
-		pointContainer() {}
-		pointContainer(size_t _size);
-		~pointContainer();
+		pointWrapper();
+		pointWrapper(size_t _size);
+		pointWrapper(pointWrapperType _type);
+		pointWrapper(const pointWrapper& _pointWrapper);
+		~pointWrapper();
 
 		void defineDataType(size_t _size);
+		void defineDataType(pointWrapperType _type);
 
 		int& operator[](int _index); 
 		int at(int _index) const;
@@ -36,8 +27,62 @@ namespace graphics {
 		int y() const;
 		int z() const;
 
-		pointContainer& operator= (const pointContainer& _pointContainer);
-		pointContainer& operator= (const point_base& _point);
+		pointWrapper& operator= (const pointWrapper& _pointWrapper);
+		pointWrapper& operator= (const point_base& _point);
+
+		friend std::ostream& operator<<(std::ostream& _s, const pointWrapper& _point);
 	};
 }
 
+// POINT_ARRAY
+
+/// <summary>
+///		pointArray is very static, so the class doesn't need a capacity;
+/// </summary>
+namespace graphics {
+	class pointArray {
+	protected:
+		pointWrapper* points = nullptr;
+	public:
+		size_t size;
+
+		pointArray();
+		pointArray(size_t _size);
+		pointArray(size_t _size, pointWrapperType _type);
+		pointArray(size_t _size, const pointWrapper& _pointWrapper);
+
+		void add(const pointWrapper& _pointWrapper);
+		void remove(int _index);
+
+		pointWrapper& operator[](int _index);
+		pointWrapper at(int _index) const;
+
+		/*void print() const;*/
+		friend std::ostream& operator<< (std::ostream& _s, const pointArray& _pointArray);
+
+		// Operators:
+		pointArray& operator= (const pointArray& _pointArray);
+
+		// Invert operator
+		const pointArray& operator-();
+
+		// Multiply operator
+		const pointArray operator*(const pointArray& _pointArray) const;
+		const pointArray operator*(int _scalar) const;
+
+		// Sum and substraction operators
+		const pointArray operator+(const pointArray& _pointArray) const;
+		const pointArray operator-(const pointArray& _pointArray) const;
+
+		// Sum/sub and equal operators
+		pointArray& operator+=(const pointArray& _pointArray);
+		pointArray& operator-=(const pointArray& _pointArray);
+
+		// Multiplication operator
+		pointArray& operator*=(const pointArray& _pointArray);
+		pointArray& operator*= (int _scalar);
+
+		// is Equal operator
+		bool operator==(const pointArray& _pointArray);
+	};
+}

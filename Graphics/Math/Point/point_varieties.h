@@ -52,7 +52,7 @@ namespace graphics {
 		virtual bool operator==(const point_base& _point);
 
 		// Stream output operator 
-		friend std::ostream& operator<< (std::ostream& _s, const point2& _point);
+		//friend std::ostream& operator<< (std::ostream& _s, const point2& _point);
 	};
 
 	class point3 : public point2 {
@@ -100,21 +100,22 @@ namespace graphics {
 		virtual bool operator== (const point_base& _point) override;
 
 		// Stream output operator 
-		friend std::ostream& operator<< (std::ostream& s, const point3& point);
+		//friend std::ostream& operator<< (std::ostream& s, const point3& point);
 	};
 	
 }
 
 // N - dimension
 namespace graphics {
-
 	class point_dynamic : public point_base {
 	private:
 		int* data = nullptr;
 
 	public:
+		point_dynamic() {}
+
 		point_dynamic(int _size) {
-			if (size <= 0)
+			if (size <= 0 || size >= maxPointSize)
 				throw std::exception("Wrong point dimension in constructor");
 
 			size = _size;

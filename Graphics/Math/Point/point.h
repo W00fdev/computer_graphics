@@ -1,5 +1,8 @@
 #pragma once
+
 #include <ostream>
+#include "../constants.h"
+
 //#include <vector>
 
 // POINT 
@@ -31,5 +34,9 @@ namespace graphics {
 
 		// Operator scalar multiplying
 		virtual point_base& operator*= (int _scalar) = 0;
+
+		friend std::ostream& operator<< (std::ostream& s, const point_base& point);
 	};
+
+	std::ostream& operator<< (std::ostream& _s, const point_base& _point);
 }

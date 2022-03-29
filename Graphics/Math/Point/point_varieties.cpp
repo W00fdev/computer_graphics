@@ -2,6 +2,20 @@
 
 #include "point_varieties.h"
 
+namespace graphics {
+	std::ostream& operator<< (std::ostream& _s, const point_base& _point) {
+		_s << "{";
+		for (int i = 0; i < _point.size; i++)
+		{
+			_s << _point.at(i);
+			if (i + 1 < _point.size)
+				_s << ", ";
+		}
+		_s << "}";
+		return _s;
+	}
+}
+
 // POINT2
 namespace graphics {
 
@@ -144,10 +158,10 @@ namespace graphics {
 	}
 
 	// Stream output operator 
-	std::ostream& operator<< (std::ostream& _s, const point2& _point) {
-		_s << "point2 {" << _point.xx << ", " << _point.yy << "}";
-		return _s;
-	}
+	//std::ostream& operator<< (std::ostream& _s, const point2& _point) {
+	//	_s << "point2 {" << _point.xx << ", " << _point.yy << "}";
+	//	return _s;
+	//}
 }
 
 // POINT3
@@ -325,10 +339,10 @@ namespace graphics {
 	}
 
 	// Stream output operator 
-	std::ostream& operator<< (std::ostream& _s, const point3& _point) {
-		_s << "point3 {" << _point.xx << ", " << _point.yy << ", " << _point.zz << "}";
-		return _s;
-	}
+	//std::ostream& operator<< (std::ostream& _s, const point3& _point) {
+	//	_s << "point3 {" << _point.xx << ", " << _point.yy << ", " << _point.zz << "}";
+	//	return _s;
+	//}
 }
 
 // POINTN

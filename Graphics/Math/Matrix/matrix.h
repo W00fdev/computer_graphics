@@ -24,7 +24,7 @@ namespace graphics {
 
 	class matrix_base {
 	protected:
-		pointContainer data;
+		pointWrapper data;
 		matrix_size size;
 
 		bool transposed = false;
@@ -33,8 +33,8 @@ namespace graphics {
 
 		void transpose() { transposed = !transposed; };
 
-		virtual pointContainer& operator[](int _index) = 0;
-		virtual pointContainer  at(int _index) const = 0;
+		virtual pointWrapper& operator[](int _index) = 0;
+		virtual pointWrapper  at(int _index) const = 0;
 
 		const matrix_size& getSize() const { return size; };
 	};
