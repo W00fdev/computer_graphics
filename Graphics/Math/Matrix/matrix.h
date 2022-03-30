@@ -1,79 +1,72 @@
 #pragma once
-
-#include <exception>
 #include <vector>
-
-#include "../Point/point_varieties.h"
-#include "PointContainer/point_container.h"
 
 using std::vector;
 
 namespace graphics {
 
-	// Move to constants.h
-	const int MATRIX_2_SIZE = 2;
-	const int MATRIX_3_SIZE = 3;
+class Matrix
+{
+public:
+	Matrix(int _square_size = 0, float _value = 0.0);
+	Matrix(int _row_size, int _col_sile, float _value = 0.0);
+	Matrix(int _row_size, int _col_sile, vector<float> _vec);
+	Matrix(const Matrix& _matrix);
 
-	struct matrix_size {
-		int size1, size2;
-		matrix_size(int _size1 = 0, int _size2 = 0) {
-			size1 = _size1;
-			size2 = _size2;
-		}
-	};
+	void Add(vector<float> _row) noexcept;
+	void RemoveRow(size_t row_index);
+	void RemoveCol(size_t col_index);
 
-	class matrix_base {
-	protected:
-		pointWrapper data;
-		matrix_size size;
+	// -------------------------- Base Operators --------------------------
 
-		bool transposed = false;
-	public:
-		matrix_base() {}
+	Matrix& Negative() noexcept;
+	
+	Matrix Sum(const Matrix& _matrix) const noexcept;
+	Matrix Sub(const Matrix& _matrix) const noexcept;
+	Matrix Mul(const Matrix& _matrix) const noexcept;
+	Matrix Mul(float _scalar) const noexcept;
+	Matrix Div(float _scalar) const noexcept;
 
-		void transpose() { transposed = !transposed; };
+	void Transpose() noexcept;
+	void Inverse() noexcept;
 
-		virtual pointWrapper& operator[](int _index) = 0;
-		virtual pointWrapper  at(int _index) const = 0;
+	// -------------------------- Operators Redefinition --------------------------
 
-		const matrix_size& getSize() const { return size; };
-	};
+	Matrix operator-() const noexcept;
 
-	class matrix
-	{
-	public:
-		matrix(int _size1, int _size2) {};
-		matrix(const matrix& _matrix) {};
+	Matrix operator+(const Matrix& _matrix) const noexcept;
+	Matrix operator-(const Matrix& _matrix) const noexcept;
+	Matrix operator*(const Matrix& _matrix) const noexcept;
+	Matrix operator/(float _scalar) const noexcept;
 
-		//matrix sum(const matrix& _matrix);
+	Matrix& operator=(const Matrix& _matrix) noexcept;
+	Matrix& operator+=(const Matrix& _matrix) noexcept;
+	Matrix& operator-=(const Matrix& _matrix) noexcept;
+	Matrix& operator*=(const Matrix& _matrix) noexcept;
+	Matrix& operator*=(float _scalar) noexcept;
+	Matrix& operator/=(float _scalar) noexcept;
 
-		//void transpose();
+	inline bool operator==(const Matrix& _matrix) const noexcept;
+	inline bool operator!=(const Matrix& _matrix) const noexcept;
 
-		// Operators
+	// -------------------------- GETTERS --------------------------
 
-		//matrix operator-() const;
+	float& operator()(size_t row_index, size_t col_index);
+	float at(size_t row_index, size_t col_index) const;
 
-		//matrix operator+(const matrix& _matrix);
-		//matrix operator*(const matrix& _matrix);
-		//matrix operator/(const matrix& _matrix);
-		//matrix operator^(const int);				// pow and transpose
+	vector<float> GetRow(size_t _index) const noexcept;
+	vector<float> GetCol(size_t _index) const noexcept;
 
-		//matrix& operator=(const matrix&& _matrix);
+public:
+	bool transposed{ false };
 
-		//matrix& operator+=(const matrix& _matrix);
-		//matrix& operator-=(const matrix& _matrix);
+private:
+	vector<float> data {};
+	size_t row_size{ 0 };
+	size_t col_size{ 0 };
 
-		// GETTERS
-	};
+	void Resize(size_t new_row_size, size_t new_col_size);
+};
 
-	//class matrix2 : public matrix_base {
-	//public:
-	//	matrix2();
-	//	matrix2(const matrix2& _matrix);
-	//	//matrix2(const matrix& _matrix);
-
-	//	//virtual pointContainer& operator[](int _index) override;
-	//	//virtual pointContainer  at(int _index) const override;
-	//};
 }
 

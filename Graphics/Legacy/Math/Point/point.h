@@ -29,7 +29,7 @@ namespace graphics {
 		virtual int z() const = 0;
 
 		// Copy operators
-		virtual point_base& operator= (const point_base& _point) = 0;
+		point_base& operator= (const point_base& _point);
 		//virtual point_base& operator= (const std::vector<int>& _vector) = 0;
 
 		// Invert operator
@@ -50,4 +50,14 @@ namespace graphics {
 	};
 
 	std::ostream& operator<< (std::ostream& _s, const point_base& _point);
+
+	point_base& point_base::operator= (const point_base& _point) {
+		if (size != _point.size)
+			throw std::exception("Wrong dimensions in point_base::operator=()");
+
+		for (int i = 0; i < size; i++)
+			this->operator[](i) = _point.at(i);
+
+		return *this;
+	}
 }

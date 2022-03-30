@@ -315,6 +315,8 @@ namespace graphics {
 	const pointArray& pointArray::operator-() {
 		for (size_t i = 0; i < size; i++)
 			-(points[i].getPointBase());
+
+		return *this;
 	}
 
 	// Multiply operator
@@ -342,7 +344,7 @@ namespace graphics {
 	// Sum and substraction operators
 	const pointArray pointArray::operator+(const pointArray& _pointArray) const {
 		if (_pointArray.size != size)
-			throw std::exception("Wrong dimensions in pointArray::operator*()");
+			throw std::exception("Wrong dimensions in pointArray::operator+()");
 
 		pointArray result = *this;
 
@@ -353,9 +355,6 @@ namespace graphics {
 	}
 
 	const pointArray pointArray::operator-(const pointArray& _pointArray) const {
-		if (_pointArray.size != size)
-			throw std::exception("Wrong dimensions in pointArray::operator*()");
-
 		pointArray result = *this;
 		return -result + _pointArray;
 	}
@@ -363,7 +362,7 @@ namespace graphics {
 	// Sum/sub and equal operators
 	pointArray& pointArray::operator+=(const pointArray& _pointArray) {
 		if (_pointArray.size != size)
-			throw std::exception("Wrong dimensions in pointArray::operator*()");
+			throw std::exception("Wrong dimensions in pointArray::operator+=()");
 
 		for (size_t i = 0; i < size; i++)
 			points[i].getPointBase() += _pointArray.at(i).getPointBase();
@@ -372,9 +371,6 @@ namespace graphics {
 	}
 
 	pointArray& pointArray::operator-=(const pointArray& _pointArray) {
-		if (_pointArray.size != size)
-			throw std::exception("Wrong dimensions in pointArray::operator*()");
-
 		*this = -(*this) + _pointArray;
 		return *this;
 	}

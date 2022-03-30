@@ -86,6 +86,7 @@ namespace graphics {
 
 		return *this;
 	}
+
 	/*point_base& point2::operator= (const std::vector<int>& _point) {
 		if (_point.size() > 1)
 		{
@@ -351,6 +352,19 @@ namespace graphics {
 
 // POINTN
 namespace graphics {
+	point_dynamic::point_dynamic(int _size) {
+		if (size <= 0 || size >= maxPointSize)
+			throw std::exception("Wrong point dimension in constructor");
+
+		size = _size;
+		data = new int[size];
+	}
+
+	point_dynamic::point_dynamic(const point_dynamic& _point) {
+		data = nullptr;
+		*this = _point;
+	}
+
 	int& pointn::operator[](int _index) {
 		if (_index >= size || _index < 0)
 			throw std::exception("Wrong index at pointn[]");
@@ -378,17 +392,18 @@ namespace graphics {
 	}
 
 	// Copy operators
-	point_base& pointn::operator= (const point_base& _point) {
-		if (data != nullptr)
-			delete data;
+	//point_base& graphics::point_dynamic::operator=(const point_base& _point)
+	//{
+	//	if (data != nullptr)
+	//		delete data;
 
-		size = _point.size;
-		data = new int[size];
-		for (int i = 0; i < size; i++)
-			data[i] = _point.size;
+	//	size = _point.size;
+	//	data = new int[size];
+	//	for (int i = 0; i < size; i++)
+	//		data[i] = _point.at(i);
 
-		return *this;
-	}
+	//	return *this;
+	//}
 
 	const point_base& pointn::operator-() {
 		for (int i = 0; i < size; i++)
@@ -397,12 +412,23 @@ namespace graphics {
 		return *this;
 	}
 
-	const pointn operator+(const point_base& _point1, const point_base& _point2) {
+	const pointn pointn::operator+ (const point_base& _point) const {
+		if (size != _point.size)
+			throw std::exception("Wrong dimensions in pointn::operator+()");
 
+		pointn result = *this;
+
+		for (int i = 0; i < size; i++)
+			result.data[i] += _point.at(i);
+
+		return result;
 	}
 
-	const pointn operator-(const point_base& _point1, const point_base& _point2) {
-
+	const pointn pointn::operator- (const point_base& _point) const {
+		pointn temp = *this;
+		temp = -temp;
+		temp += _point;
+		return temp;
 	}
 
 	// Operators multiplying

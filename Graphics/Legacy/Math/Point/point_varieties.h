@@ -26,7 +26,7 @@ namespace graphics {
 		virtual int  at(int index) const override;
 
 		// Copy operators
-		virtual point_base& operator= (const point_base& _point) override;
+		//virtual point_base& operator= (const point_base& _point) override;
 		//virtual point_base& operator= (const std::vector<int>& _point) override;
 
 		// Invert operator
@@ -74,7 +74,7 @@ namespace graphics {
 		int at(int index) const override;
 
 		// Copy operators
-		point_base& operator= (const point_base& _point) override;
+		//virtual point_base& operator= (const point_base& _point) override;
 		//point_base& operator= (const std::vector<int>& _point) override;
 
 		// Invert operator
@@ -113,14 +113,8 @@ namespace graphics {
 
 	public:
 		point_dynamic() {}
-
-		point_dynamic(int _size) {
-			if (size <= 0 || size >= maxPointSize)
-				throw std::exception("Wrong point dimension in constructor");
-
-			size = _size;
-			data = new int[size];
-		}
+		point_dynamic(int _size);
+		point_dynamic(const point_dynamic& _point);
 
 		virtual int& operator[](int _index) override;
 		virtual int  at(int _index) const override;
@@ -130,13 +124,16 @@ namespace graphics {
 		virtual int z() const override;
 
 		// Copy operators
-		virtual point_base& operator= (const point_base& _point) override;
+		//virtual point_base& operator= (const point_base& _point) override;
 
 		// Invert operator
 		virtual const point_base& operator-() override;
 
-		friend const pointn operator+(const point_base& _point1, const point_base& _point2);
-		friend const pointn operator-(const point_base& _point1, const point_base& _point2);
+		//friend const pointn operator+(const point_base& _point1, const point_base& _point2);
+		//friend const pointn operator-(const point_base& _point1, const point_base& _point2);
+
+		const point_dynamic operator+ (const point_base& _point) const;
+		const point_dynamic operator- (const point_base& _point) const;
 
 		virtual point_base& operator*= (const point_base& _point) override;
 		virtual point_base& operator*= (int _scalar) override;
